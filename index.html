@@ -86,8 +86,8 @@
 </footer>
 
 <script>
-const calendarId = "ここにカレンダーIDを入れる";
-const apiKey = "ここにAPIキーを入れる";
+const calendarId = "a622c89a828f5f5b9a69926fc2b6e94696c8d5e1fce7ac30a4c45bf947aa773a@group.calendar.google.com";
+const apiKey = "AIzaSyBW7D1JzLWRu7ld3MAVimXXiMVXq6FUt08";
 
 const today = new Date().toISOString().split("T")[0];
 const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${apiKey}&timeMin=${today}T00:00:00Z&timeMax=${today}T23:59:59Z&singleEvents=true&orderBy=startTime`;
@@ -121,6 +121,7 @@ fetch(url)
 
 </body>
 </html>
+
 
 
 
