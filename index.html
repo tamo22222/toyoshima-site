@@ -85,8 +85,43 @@
   <p>制作：呉高専島おこしIW</p>
 </footer>
 
+<script>
+const calendarId = "ここにカレンダーIDを入れる";
+const apiKey = "ここにAPIキーを入れる";
+
+const today = new Date().toISOString().split("T")[0];
+const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${apiKey}&timeMin=${today}T00:00:00Z&timeMax=${today}T23:59:59Z&singleEvents=true&orderBy=startTime`;
+
+fetch(url)
+  .then(res => res.json())
+  .then(data => {
+    const box = document.getElementById("todayStatus");
+
+    if (data.items && data.items.length > 0) {
+      const event = data.items[0];
+      box.classList.add("open");
+      box.innerHTML = `
+        <h2>本日の運行状況</h2>
+        <p>🟢 本日は運行日です</p>
+        <p>${event.summary}</p>
+      `;
+    } else {
+      box.classList.add("close");
+      box.innerHTML = `
+        <h2>本日の運行状況</h2>
+        <p>🔴 本日は運行していません</p>
+      `;
+    }
+  })
+  .catch(() => {
+    document.getElementById("todayStatus").innerHTML =
+      "<p>予定情報を取得できませんでした</p>";
+  });
+</script>
+
 </body>
 </html>
+
 
 
 
