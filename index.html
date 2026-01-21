@@ -43,6 +43,10 @@
   <h2>本日の運行状況</h2>
   <p>読み込み中...</p>
 </section>
+<section id="nextStatus" class="today-status">
+  <h2>次回の運行予定</h2>
+  <p>読み込み中...</p>
+</section>
 
 
 <section class="calendar-section">
@@ -89,7 +93,6 @@
 const calendarId = "a622c89a828f5f5b9a69926fc2b6e94696c8d5e1fce7ac30a4c45bf947aa773a@group.calendar.google.com";
 const apiKey = "AIzaSyBW7D1JzLWRu7ld3MAVimXXiMVXq6FUt08";
 
-// 日本時間で「今日」を取得
 function getTodayJST() {
   const now = new Date();
   const jst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
@@ -97,42 +100,90 @@ function getTodayJST() {
 }
 
 const today = getTodayJST();
+const timeMin = `${today}T00:00:00+09:00`;
 
 const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events
 ?key=${apiKey}
-&timeMin=${today}T00:00:00+09:00
-&timeMax=${today}T23:59:59+09:00
+&timeMin=${timeMin}
 &singleEvents=true
-&orderBy=startTime`;
+&orderBy=startTime
+&maxResults=5`;
 
 fetch(url.replace(/\s+/g, ""))
   .then(res => res.json())
   .then(data => {
-    const box = document.getElementById("todayStatus");
+    const todayBox = document.getElementById("todayStatus");
+    const nextBox = document.getElementById("nextStatus");
 
-    if (data.items && data.items.length > 0) {
-      box.classList.add("open");
+    if (!data.items || data.items.length === 0) {
+      todayBox.classList.add("close");
+      todayBox.innerHTML = `
+        <h2>本日の運行状況</h2>
+        <p>🔴 本日は運行していません</p>
+      `;
+      nextBox.innerHTML = `
+        <h2>次回の運行予定</h2>
+        <p>現在予定はありません</p>
+      `;
+      return;
+    }
 
-      const list = data.items.map(event =>
-        `<li>${event.summary || "運行予定"}</li>`
-      ).join("");
+    const todayEvents = [];
+    let nextEvent = null;
 
-      box.innerHTML = `
+    data.items.forEach(event => {
+      const startDate = (event.start.dateTime || event.start.date).slice(0, 10);
+      if (startDate === today) {
+        todayEvents.push(event);
+      } else if (!nextEvent && startDate > today) {
+        nextEvent = event;
+      }
+    });
+
+    // 今日の表示
+    if (todayEvents.length > 0) {
+      todayBox.classList.add("open");
+      const list = todayEvents.map(e => `<li>${e.summary || "運行予定"}</li>`).join("");
+      todayBox.innerHTML = `
         <h2>本日の運行状況</h2>
         <p>🟢 本日は運行日です</p>
         <ul style="list-style:none; padding:0;">${list}</ul>
       `;
     } else {
-      box.classList.add("close");
-      box.innerHTML = `
+      todayBox.classList.add("close");
+      todayBox.innerHTML = `
         <h2>本日の運行状況</h2>
         <p>🔴 本日は運行していません</p>
       `;
     }
+
+    // 次回の表示
+    if (nextEvent) {
+      const date = new Date(nextEvent.start.dateTime || nextEvent.start.date);
+      const dateText = date.toLocaleDateString("ja-JP", {
+        month: "numeric",
+        day: "numeric",
+        weekday: "short"
+      });
+
+      const timeText = nextEvent.start.dateTime
+        ? date.toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit" })
+        : "";
+
+      nextBox.classList.add("open");
+      nextBox.innerHTML = `
+        <h2>次回の運行予定</h2>
+        <p><strong>${dateText} ${timeText}</strong></p>
+        <p>🚗 ${nextEvent.summary || "運行予定"}</p>
+      `;
+    } else {
+      nextBox.innerHTML = `
+        <h2>次回の運行予定</h2>
+        <p>現在予定はありません</p>
+      `;
+    }
   })
   .catch(err => {
-    document.getElementById("todayStatus").innerHTML =
-      "<p>予定情報を取得できませんでした</p>";
     console.error(err);
   });
 </script>
@@ -140,6 +191,7 @@ fetch(url.replace(/\s+/g, ""))
 
 </body>
 </html>
+
 
 
 
