@@ -89,21 +89,38 @@
 const calendarId = "a622c89a828f5f5b9a69926fc2b6e94696c8d5e1fce7ac30a4c45bf947aa773a@group.calendar.google.com";
 const apiKey = "AIzaSyBW7D1JzLWRu7ld3MAVimXXiMVXq6FUt08";
 
-const today = new Date().toISOString().split("T")[0];
-const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${apiKey}&timeMin=${today}T00:00:00Z&timeMax=${today}T23:59:59Z&singleEvents=true&orderBy=startTime`;
+// 日本時間で「今日」を取得
+function getTodayJST() {
+  const now = new Date();
+  const jst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+  return jst.toISOString().split("T")[0];
+}
 
-fetch(url)
+const today = getTodayJST();
+
+const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events
+?key=${apiKey}
+&timeMin=${today}T00:00:00+09:00
+&timeMax=${today}T23:59:59+09:00
+&singleEvents=true
+&orderBy=startTime`;
+
+fetch(url.replace(/\s+/g, ""))
   .then(res => res.json())
   .then(data => {
     const box = document.getElementById("todayStatus");
 
     if (data.items && data.items.length > 0) {
-      const event = data.items[0];
       box.classList.add("open");
+
+      const list = data.items.map(event =>
+        `<li>${event.summary || "運行予定"}</li>`
+      ).join("");
+
       box.innerHTML = `
         <h2>本日の運行状況</h2>
         <p>🟢 本日は運行日です</p>
-        <p>${event.summary}</p>
+        <ul style="list-style:none; padding:0;">${list}</ul>
       `;
     } else {
       box.classList.add("close");
@@ -113,14 +130,17 @@ fetch(url)
       `;
     }
   })
-  .catch(() => {
+  .catch(err => {
     document.getElementById("todayStatus").innerHTML =
       "<p>予定情報を取得できませんでした</p>";
+    console.error(err);
   });
 </script>
 
+
 </body>
 </html>
+
 
 
 
