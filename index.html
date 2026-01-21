@@ -93,21 +93,22 @@
 const calendarId = "a622c89a828f5f5b9a69926fc2b6e94696c8d5e1fce7ac30a4c45bf947aa773a@group.calendar.google.com";
 const apiKey = "AIzaSyBW7D1JzLWRu7ld3MAVimXXiMVXq6FUt08";
 
-function getTodayJST() {
+function getTodayJSTDate() {
   const now = new Date();
-  const jst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
-  return jst.toISOString().split("T")[0];
+  return new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
 }
 
-const today = getTodayJST();
-const timeMin = `${today}T00:00:00+09:00`;
+const todayDate = getTodayJSTDate();
+todayDate.setHours(0,0,0,0);
+
+const timeMin = todayDate.toISOString();
 
 const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events
 ?key=${apiKey}
 &timeMin=${timeMin}
 &singleEvents=true
 &orderBy=startTime
-&maxResults=5`;
+&maxResults=10`;
 
 fetch(url.replace(/\s+/g, ""))
   .then(res => res.json())
@@ -115,27 +116,16 @@ fetch(url.replace(/\s+/g, ""))
     const todayBox = document.getElementById("todayStatus");
     const nextBox = document.getElementById("nextStatus");
 
-    if (!data.items || data.items.length === 0) {
-      todayBox.classList.add("close");
-      todayBox.innerHTML = `
-        <h2>本日の運行状況</h2>
-        <p>🔴 本日は運行していません</p>
-      `;
-      nextBox.innerHTML = `
-        <h2>次回の運行予定</h2>
-        <p>現在予定はありません</p>
-      `;
-      return;
-    }
-
-    const todayEvents = [];
+    let todayEvents = [];
     let nextEvent = null;
 
     data.items.forEach(event => {
-      const startDate = (event.start.dateTime || event.start.date).slice(0, 10);
-      if (startDate === today) {
+      const start = new Date(event.start.dateTime || event.start.date);
+      start.setHours(0,0,0,0);
+
+      if (start.getTime() === todayDate.getTime()) {
         todayEvents.push(event);
-      } else if (!nextEvent && startDate > today) {
+      } else if (start.getTime() > todayDate.getTime() && !nextEvent) {
         nextEvent = event;
       }
     });
@@ -159,15 +149,14 @@ fetch(url.replace(/\s+/g, ""))
 
     // 次回の表示
     if (nextEvent) {
-      const date = new Date(nextEvent.start.dateTime || nextEvent.start.date);
-      const dateText = date.toLocaleDateString("ja-JP", {
+      const d = new Date(nextEvent.start.dateTime || nextEvent.start.date);
+      const dateText = d.toLocaleDateString("ja-JP", {
         month: "numeric",
         day: "numeric",
         weekday: "short"
       });
-
       const timeText = nextEvent.start.dateTime
-        ? date.toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit" })
+        ? d.toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit" })
         : "";
 
       nextBox.classList.add("open");
@@ -183,14 +172,14 @@ fetch(url.replace(/\s+/g, ""))
       `;
     }
   })
-  .catch(err => {
-    console.error(err);
-  });
+  .catch(err => console.error(err));
 </script>
+
 
 
 </body>
 </html>
+
 
 
 
