@@ -121,3 +121,30 @@ section {
   color: #666;
   margin-top: 10px;
 }
+
+.today-status {
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.today-status.open {
+  background: #e8f7ee;
+  color: #1b7f4a;
+}
+
+.today-status.close {
+  background: #fdecea;
+  color: #a61b1b;
+}
+
+.status-text {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.detail {
+  font-size: 0.95em;
+}
