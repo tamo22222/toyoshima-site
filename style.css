@@ -180,3 +180,9 @@ section {
   font-size: 0.95em;
 }
 
+@media (max-width: 768px) {
+  .calendar-wrapper iframe {
+    height: 500px;
+  }
+}
+
