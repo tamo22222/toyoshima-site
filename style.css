@@ -232,15 +232,35 @@ body.large-font {
 /* ===== 高齢者向け文字サイズ切替（最終調整版） ===== */
 
 /* 標準 */
-body.normal-font * {
-  line-height: 1.6;
+body.normal-font {
+  font-size: 16px;
 }
 
-/* 読みやすさ重視（大きくしすぎない） */
-body.large-font * {
-  font-size: 1.18em !important;
-  line-height: 1.9;
+/* 大きめ（高齢者向け） */
+body.large-font {
+  font-size: 18px; /* ← 24pxは大きすぎ。18〜19が最適 */
 }
+
+/* 見出しは少しだけ拡大 */
+body.large-font h1 {
+  font-size: 44px; /* 元40px */
+}
+
+body.large-font h2 {
+  font-size: 32px; /* 元28px */
+}
+
+body.large-font h3 {
+  font-size: 22px;
+}
+
+/* カード内の文章 */
+body.large-font p,
+body.large-font li {
+  line-height: 1.8; /* ← 高齢者向けで非常に重要 */
+}
+
+
 
 
 
