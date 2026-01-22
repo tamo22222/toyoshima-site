@@ -221,3 +221,11 @@ section {
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
+body.normal-font {
+  font-size: 16px;
+}
+
+body.large-font {
+  font-size: 24px; /* ← ここを大きく */
+}
+
