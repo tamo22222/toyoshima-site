@@ -44,7 +44,7 @@
   <p>読み込み中...</p>
 </section>
 <section id="nextStatus" class="today-status">
-  <h2>次回の運行予定</h2>
+  <h2>次の運行予定</h2>
   <p>読み込み中...</p>
 </section>
 
@@ -52,7 +52,7 @@
 <section class="calendar-section">
   <h2>活動予定カレンダー</h2>
   <p class="section-desc">
-    移動支援カーの運行予定です。天候等により変更される場合があります。
+    移動支援カーの運行予定です。天候等により変更される場合があります。この予定表は、車両による島内支援活動の予定を自動で表示しています。
   </p>
 
   <div class="calendar-wrapper">
@@ -161,14 +161,14 @@ fetch(url.replace(/\s+/g, ""))
 
       nextBox.classList.add("open");
       nextBox.innerHTML = `
-        <h2>次回の運行予定</h2>
+        <h2>次の運行予定</h2>
         <p><strong>${dateText} ${timeText}</strong></p>
         <p>🚗 ${nextEvent.summary || "運行予定"}</p>
       `;
     } else {
       nextBox.innerHTML = `
         <h2>次回の運行予定</h2>
-        <p>現在予定はありません</p>
+        <p>現在、公開されている運行予定はありません</p>
       `;
     }
   })
@@ -179,6 +179,7 @@ fetch(url.replace(/\s+/g, ""))
 
 </body>
 </html>
+
 
 
 
