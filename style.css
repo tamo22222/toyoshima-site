@@ -204,3 +204,7 @@ section {
     padding: 4px 6px;
   }
 }
+
+.font-controls {
+  background: red;
+}
