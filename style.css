@@ -229,3 +229,16 @@ body.large-font {
   font-size: 24px; /* ← ここを大きく */
 }
 
+/* ===== 高齢者向け文字サイズ切替（最終版） ===== */
+
+/* 標準 */
+body.normal-font * {
+  line-height: 1.6;
+}
+
+/* 大きく表示 */
+body.large-font * {
+  font-size: 1.3em !important;
+  line-height: 1.8;
+}
+
