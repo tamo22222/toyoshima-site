@@ -260,6 +260,26 @@ body.large-font li {
   line-height: 1.8; /* ← 高齢者向けで非常に重要 */
 }
 
+/* ===== スマホでは拡大を控えめにする ===== */
+@media (max-width: 768px) {
+
+  body.large-font {
+    font-size: 17px; /* ← スマホはこれくらいが最適 */
+  }
+
+  body.large-font h1 {
+    font-size: 32px;
+  }
+
+  body.large-font h2 {
+    font-size: 24px;
+  }
+
+  body.large-font h3 {
+    font-size: 20px;
+  }
+}
+
 
 
 
