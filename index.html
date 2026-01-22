@@ -12,6 +12,10 @@
   <h1>車で、豊島の暮らしを支える</h1>
   <p>呉市豊島を題材にした、移動支援の事業アイデア</p>
   <img src="images/toyoshima.jpg" alt="豊島の風景">
+<div class="font-controls">
+  <button onclick="setFontSize('normal')">標準</button>
+  <button onclick="setFontSize('large')">文字を大きく</button>
+</div>
 </header>
 
 
@@ -173,12 +177,23 @@ fetch(url.replace(/\s+/g, ""))
     }
   })
   .catch(err => console.error(err));
+function setFontSize(size) {
+  if (size === 'large') {
+    document.body.classList.remove('normal-font');
+    document.body.classList.add('large-font');
+  } else {
+    document.body.classList.remove('large-font');
+    document.body.classList.add('normal-font');
+  }
+}
+document.body.classList.add('normal-font');
 </script>
 
 
 
 </body>
 </html>
+
 
 
 
