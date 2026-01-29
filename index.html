@@ -19,14 +19,14 @@
   <button onclick="setFontSize('large')">文字を大きく</button>
 </div>
 
-  <header class="hero">
+  <header class="hero" id="home">
   <h1>車で、豊島の暮らしを支える</h1>
   <p>呉市豊島を題材にした、移動支援の事業アイデア</p>
   <img src="images/toyoshima.jpg" alt="豊島の風景">
 </header>
 
 
-<section>
+<section id="about">
   <h2>背景</h2>
   <p>
     豊島では、日常の移動が必要な場面が多くあります。
@@ -50,7 +50,7 @@
   </div>
 </section>
 
-<section id="todayStatus" class="today-status">
+<section id="status" class="today-status">
   <h2>本日の運行状況</h2>
   <p>読み込み中...</p>
 </section>
@@ -76,7 +76,7 @@
 </section>
 
 
-<section>
+<section id="survey">
   <h2>このアイデアについて</h2>
 <iframe
   src="https://docs.google.com/forms/d/e/1FAIpQLScbmn66-B9VKijMMi0ia_doxCmfsvTQxUbrWEP2CDWDjIeh6w/viewform?embedded=true"
@@ -96,7 +96,7 @@
 
 </section>
 
-<footer>
+<footer id="contact">
   <p>制作：呉高専島おこしIW</p>
 </footer>
 
@@ -200,6 +200,7 @@ document.body.classList.add('normal-font');
 
 </body>
 </html>
+
 
 
 
