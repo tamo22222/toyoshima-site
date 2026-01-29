@@ -1,93 +1,283 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>とびしまに、ちいさな幸せを届ける</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ★ ここに、さっき貼ってくれたCSSをそのまま貼ってOK -->
-  <style>
-  body {
+body {
   margin: 0;
   font-family: sans-serif;
-  ...
+  color: #333;
+  background: #f5f9fc;
 }
-  </style>
-</head>
 
-<body class="normal-font">
+.hero {
+  background: #9cc9e8;
+  text-align: center;
+  padding: 80px 20px;
+}
 
-  <!-- ===== ナビゲーション ===== -->
-  <nav>
-    <ul class="nav">
-      <li><a href="#home">ホーム</a></li>
-      <li><a href="#activity">活動の紹介</a></li>
-      <li><a href="#status">運行情報</a></li>
-      <li><a href="#survey">アンケート</a></li>
-      <li><a href="#contact">お問い合わせ</a></li>
-    </ul>
-  </nav>
+section {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
 
-  <!-- ===== ホーム ===== -->
-  <div class="hero" id="home">
-    <h1>とびしまに、ちいさな幸せを届ける</h1>
-    <p>とびしまでの地域活動を紹介します</p>
-  </div>
+h2 {
+  margin-bottom: 16px;
+}
 
-  <!-- ===== 活動の紹介 ===== -->
-  <section id="activity">
-    <h2>活動の紹介</h2>
-    <div class="cards">
-      <div class="card">
-        <p>
-          とびしまで行っている地域支援や交流活動を紹介しています。
-        </p>
-      </div>
-      <div class="card">
-        <p>
-          高齢者の方や地域の皆さんが安心して暮らせる取り組みを行っています。
-        </p>
-      </div>
-    </div>
-  </section>
+.cards {
+  display: flex;
+  gap: 20px;
+}
 
-  <!-- ===== 運行情報 ===== -->
-  <section id="status">
-    <h2>運行情報</h2>
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  flex: 1;
+}
 
-    <div class="today-status open">
-      <p class="status-text">本日は運行しています</p>
-    </div>
+footer {
+  text-align: center;
+  padding: 40px;
+  background: #e9eef2;
+}
 
-    <p class="detail">
-      ※ 天候や都合により変更になる場合があります。
-    </p>
-  </section>
+.hero img {
+  margin-top: 32px;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px;
+}
 
-  <!-- ===== アンケート ===== -->
-  <section id="survey">
-    <h2>アンケート</h2>
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
 
-    <div class="survey">
-      <p>ご意見・ご感想をお聞かせください。</p>
-      <textarea placeholder="ご自由にお書きください"></textarea>
-      <button>送信</button>
-      <p class="note">※このアンケートは匿名です</p>
-    </div>
-  </section>
+h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
 
-  <!-- ===== お問い合わせ ===== -->
-  <section id="contact">
-    <h2>お問い合わせ</h2>
-    <p>ご質問・ご相談はこちらまでご連絡ください。</p>
-    <p>Email：example@example.com</p>
-  </section>
+section {
+  border-top: 1px solid #ddd;
+  padding-top: 40px;
+}
 
-  <!-- ===== フッター ===== -->
-  <footer>
-    <p>© とびしまに、ちいさな幸せを届ける</p>
-  </footer>
+@media screen and (max-width: 768px) {
 
-</body>
-</html>
+  .hero {
+    padding: 60px 16px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .cards {
+    flex-direction: column;
+  }
+
+  .card {
+    margin-bottom: 20px;
+  }
+  .hero img {
+  max-height: 300px;
+  object-fit: cover;
+}
+}
+
+.survey {
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.survey textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.survey button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.note {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 10px;
+}
+
+.note {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 10px;
+}
+
+.today-status {
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.today-status.open {
+  background: #e8f7ee;
+  color: #1b7f4a;
+}
+
+.today-status.close {
+  background: #fdecea;
+  color: #a61b1b;
+}
+
+.status-text {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+/* ===== カレンダーセクション ===== */
+.calendar-section {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.calendar-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.section-desc {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* カレンダーの枠 */
+.calendar-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* iframe本体 */
+.calendar-wrapper iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+}
+
+.detail {
+  font-size: 0.95em;
+}
+
+@media (max-width: 768px) {
+  .calendar-wrapper iframe {
+    height: 500px;
+  }
+}
+
+.font-controls {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+  .font-controls button {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+}
+
+.font-controls {
+  background: red;
+}
+/* 文字サイズ切替ボタン：強制固定 */
+.font-controls {
+  position: fixed !important;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+body.normal-font {
+  font-size: 16px;
+}
+
+body.large-font {
+  font-size: 24px; /* ← ここを大きく */
+}
+
+/* ===== 高齢者向け文字サイズ切替（最終調整版） ===== */
+
+/* 標準 */
+body.normal-font {
+  font-size: 16px;
+}
+
+/* 大きめ（高齢者向け） */
+body.large-font {
+  font-size: 18px; /* ← 24pxは大きすぎ。18〜19が最適 */
+}
+
+/* 見出しは少しだけ拡大 */
+body.large-font h1 {
+  font-size: 44px; /* 元40px */
+}
+
+body.large-font h2 {
+  font-size: 32px; /* 元28px */
+}
+
+body.large-font h3 {
+  font-size: 22px;
+}
+
+/* カード内の文章 */
+body.large-font p,
+body.large-font li {
+  line-height: 1.8; /* ← 高齢者向けで非常に重要 */
+}
+
+/* ===== スマホでは拡大を控えめにする ===== */
+@media (max-width: 768px) {
+
+  body.large-font {
+    font-size: 17px; /* ← スマホはこれくらいが最適 */
+  }
+
+  body.large-font h1 {
+    font-size: 32px;
+  }
+
+  body.large-font h2 {
+    font-size: 24px;
+  }
+
+  body.large-font h3 {
+    font-size: 20px;
+  }
+}
+
 
