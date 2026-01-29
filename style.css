@@ -7,7 +7,11 @@
 
   <!-- ★ ここに、さっき貼ってくれたCSSをそのまま貼ってOK -->
   <style>
-  /* ← ここにあなたのCSS全文を貼り付けてください */
+  body {
+  margin: 0;
+  font-family: sans-serif;
+  ...
+}
   </style>
 </head>
 
@@ -86,3 +90,4 @@
 
 </body>
 </html>
+
